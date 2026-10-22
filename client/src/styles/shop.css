@@ -1,0 +1,30 @@
+/* ——— Магазин ——— */
+.page-head { display: grid; gap: 4px; margin-bottom: 14px; max-width: 640px; }
+.shop-tabs { max-width: 320px; margin-bottom: 14px; }
+.shop-body { display: grid; gap: 14px; }
+
+.shop-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); gap: 10px; list-style: none; margin: 0; padding: 0; }
+.shop-card {
+  display: grid; justify-items: center; gap: 4px; width: 100%; padding: 12px 6px;
+  border: var(--line) solid var(--ink); border-radius: 18px; background: var(--cream); box-shadow: var(--shadow);
+  font-weight: 800; text-align: center;
+}
+.shop-card:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
+.shop-card[aria-pressed='true'] { background: var(--pink-soft); box-shadow: inset 0 0 0 3px var(--ink); }
+.shop-card .price { display: inline-flex; align-items: center; gap: 3px; color: var(--muted); font-size: 0.9rem; }
+
+.shop-detail { display: grid; gap: 10px; max-width: 460px; }
+.detail-head { display: flex; align-items: center; gap: 14px; }
+.detail-head h2 { margin-bottom: 2px; }
+.effect { font-weight: 700; color: var(--muted); }
+.effect b { color: var(--ink); }
+
+.buy-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.stepper { display: flex; align-items: center; gap: 8px; }
+.stepper-input { width: 56px; min-height: 40px; padding: 6px; text-align: center; }
+.total { display: flex; align-items: center; gap: 6px; font-weight: 900; font-size: 1.25rem; }
+
+@media (min-width: 700px) {
+  .shop-body { grid-template-columns: minmax(0, 1fr) 320px; align-items: start; }
+  .shop-detail { position: sticky; top: 90px; }
+}

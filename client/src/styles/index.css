@@ -1,0 +1,9 @@
+@import '@fontsource-variable/nunito';
+@import './base.css';
+@import './layout.css';
+@import './pet.css';
+@import './home.css';
+@import './auth.css';
+@import './shop.css';
+@import './inventory.css';
+@import './game.css';

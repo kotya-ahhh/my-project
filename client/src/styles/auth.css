@@ -1,0 +1,16 @@
+/* ——— Экран входа ——— */
+.auth {
+  min-height: 100dvh; display: grid; place-items: center; gap: 18px;
+  padding: max(24px, env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom));
+}
+.auth-logo { width: min(48vw, 190px); aspect-ratio: 1; border-radius: 50%; overflow: hidden; border: var(--line) solid var(--ink); box-shadow: var(--shadow); }
+.auth-logo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.auth-card { width: min(100%, 420px); display: grid; gap: 14px; }
+.auth-form { display: grid; gap: 14px; margin-top: 4px; }
+.check { display: flex; align-items: center; gap: 8px; font-weight: 700; }
+.check input { width: 20px; height: 20px; accent-color: var(--peri); }
+
+@media (min-width: 900px) {
+  .auth { grid-auto-flow: column; justify-content: center; gap: 56px; }
+  .auth-logo { width: 320px; }
+}

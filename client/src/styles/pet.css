@@ -1,0 +1,88 @@
+/* ——— Питомец: «живые» анимации ——— */
+.pet {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.pet-body,
+.pet-head,
+.pet-tail,
+.pet-ear-l,
+.pet-ear-r,
+.pet-blink,
+.pet-chew,
+.pet-yawn,
+.pet-zzz text,
+.pet-tear,
+.pet-stink path,
+.pet-crumbs circle,
+.pet-foam {
+  transform-box: fill-box;
+}
+.pet-fly,
+.pet-bubble {
+  transform-box: view-box;
+}
+
+.pet-body { transform-origin: 50% 100%; animation: pet-breathe 3.6s ease-in-out infinite; }
+.pet-head { transform-origin: 50% 100%; animation: pet-bob 3.6s ease-in-out infinite; transition: transform 0.6s ease; }
+.pet-tail { transform-origin: 6% 92%; animation: pet-wag 2.8s ease-in-out infinite; }
+.pet-ear-l,
+.pet-ear-r { transform-origin: 75% 95%; animation: pet-twitch 7s ease-in-out infinite; transition: transform 0.5s ease; }
+.pet-ear-r { animation-delay: -3s; }
+.pet-blink { transform-origin: 50% 50%; animation: pet-blink 5s infinite; }
+
+/* настроение */
+.pet--sleeping .pet-head { animation: none; transform: translateY(9px) rotate(-2deg); }
+.pet--sleeping .pet-body { animation-duration: 5.5s; }
+.pet--sleeping .pet-tail { animation-duration: 6s; }
+.pet--sad .pet-ear-l,
+.pet--hungry .pet-ear-l { animation: none; transform: rotate(-13deg); }
+.pet--sad .pet-ear-r,
+.pet--hungry .pet-ear-r { animation: none; transform: rotate(-13deg); }
+.pet--sad .pet-tail,
+.pet--hungry .pet-tail,
+.pet--sleepy .pet-tail { animation-duration: 6s; }
+.pet--sad .pet-head { animation-duration: 5s; transform: translateY(3px); }
+.pet--sleepy .pet-head { animation-duration: 5s; }
+.pet--happy .pet-tail { animation-duration: 1.6s; }
+
+/* действия */
+.pet--eating .pet-head { animation: pet-nod 0.7s ease-in-out infinite; }
+.pet-chew { transform-origin: 50% 0%; animation: pet-chew 0.35s ease-in-out infinite; }
+.pet-crumbs circle { animation: pet-crumb 0.9s ease-out infinite; }
+.pet--petted .pet-head { animation: pet-squish 0.5s ease-in-out infinite; }
+.pet--petted .pet-tail { animation-duration: 0.45s; }
+.pet--petted .pet-ear-l,
+.pet--petted .pet-ear-r { animation-duration: 0.6s; }
+.pet--washing .pet-head,
+.pet--washing .pet-body { animation: pet-wiggle 0.42s ease-in-out infinite; }
+.pet-bubble { animation: pet-bubble 2.2s ease-out infinite; opacity: 0; }
+.pet-foam { transform-origin: 50% 100%; animation: pet-foam 1.2s ease-in-out infinite; }
+
+/* мелочи */
+.pet-yawn { transform-origin: 50% 40%; animation: pet-yawn 3.2s ease-in-out infinite; }
+.pet-zzz text { animation: pet-z 3s ease-in-out infinite; }
+.pet-tear { animation: pet-tear 2.4s ease-in infinite; }
+.pet-stink path { animation: pet-stink 2.2s ease-in-out infinite; }
+.pet-fly { transform-origin: 200px 150px; animation: pet-fly 1.7s linear infinite; }
+.pet-fly-2 { animation-duration: 2.3s; animation-direction: reverse; }
+
+@keyframes pet-breathe { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.015, 1.03); } }
+@keyframes pet-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes pet-wag { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(7deg); } }
+@keyframes pet-twitch { 0%, 88%, 100% { transform: rotate(0); } 91% { transform: rotate(-7deg); } 94% { transform: rotate(2deg); } }
+@keyframes pet-blink { 0%, 93%, 100% { transform: scaleY(1); } 96% { transform: scaleY(0.1); } }
+@keyframes pet-nod { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(6px) rotate(2deg); } }
+@keyframes pet-chew { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.55); } }
+@keyframes pet-crumb { 0% { transform: translateY(-6px) scale(0.4); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(26px) scale(1); opacity: 0; } }
+@keyframes pet-squish { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.03, 0.95); } }
+@keyframes pet-wiggle { 0%, 100% { transform: rotate(-1.5deg); } 50% { transform: rotate(1.5deg); } }
+@keyframes pet-bubble { 0% { transform: translateY(24px) scale(0.5); opacity: 0; } 25% { opacity: 1; } 85% { opacity: 1; } 100% { transform: translateY(-46px) scale(1.15); opacity: 0; } }
+@keyframes pet-foam { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06, 0.95); } }
+@keyframes pet-yawn { 0%, 100% { transform: scaleY(0.85); } 50% { transform: scaleY(1.1); } }
+@keyframes pet-z { 0% { transform: translate(0, 8px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translate(6px, -14px); opacity: 0; } }
+@keyframes pet-tear { 0%, 60% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(16px); opacity: 0; } }
+@keyframes pet-stink { 0%, 100% { transform: translateY(0); opacity: 0.35; } 50% { transform: translateY(-8px); opacity: 1; } }
+@keyframes pet-fly { to { transform: rotate(360deg); } }

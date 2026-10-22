@@ -1,0 +1,19 @@
+{
+  "name": "mainul",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Майнул — веб-приложение «виртуальный питомец»",
+  "type": "module",
+  "engines": { "node": ">=26" },
+  "workspaces": ["server", "client"],
+  "scripts": {
+    "dev": "concurrently -n server,client -c magenta,cyan \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w client",
+    "start": "npm run start -w server",
+    "db:init": "npm run db:init -w server",
+    "test": "npm test -w server"
+  },
+  "devDependencies": {
+    "concurrently": "10.0.5"
+  }
+}

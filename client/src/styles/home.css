@@ -1,0 +1,227 @@
+/* ——— Главная ——— */
+.home {
+  display: grid; gap: 12px; margin: 0 auto; max-width: 640px;
+  grid-template-areas: 'stats' 'room' 'actions';
+}
+.home-stats { grid-area: stats; }
+.home-room { grid-area: room; }
+.home-actions { grid-area: actions; }
+
+/* Шкалы */
+.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.stat {
+  display: grid; gap: 6px; padding: 8px 10px 10px;
+  background: var(--cream); border: var(--line) solid var(--ink); border-radius: 18px;
+  transition: background-color 0.4s;
+}
+.stat-top { display: flex; align-items: center; gap: 6px; font-weight: 800; }
+.stat-name { flex: 1; font-size: 0.92rem; }
+.stat-val { font-weight: 900; font-variant-numeric: tabular-nums; }
+.bar {
+  height: 16px; border: var(--line) solid var(--ink); border-radius: 999px;
+  background: #fff; overflow: hidden;
+}
+.bar > i {
+  display: block; height: 100%; border-radius: 999px;
+  background-color: var(--c);
+  /* пиксельные «деления» — привет логотипу */
+  background-image: repeating-linear-gradient(90deg, transparent 0 7px, rgba(255, 255, 255, 0.45) 7px 9px);
+  transition: width 0.9s ease, background-color 0.4s;
+}
+.stat--low { background: #ffdfe2; }
+.stat--low .bar > i { background-color: var(--danger); }
+.stat--low .stat-val { color: var(--danger-text); }
+.stat--low .stat-top > svg { animation: stat-alert 1s ease-in-out infinite; }
+@keyframes stat-alert { 50% { transform: scale(1.18) rotate(-6deg); } }
+
+/* Действия */
+.actions { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.action {
+  position: relative; display: grid; justify-items: center; align-content: center; gap: 2px;
+  min-height: 78px; padding: 8px 2px;
+  border: var(--line) solid var(--ink); border-radius: 18px; background: var(--cream);
+  box-shadow: var(--shadow); font-weight: 800; font-size: 0.76rem; line-height: 1.1; text-align: center;
+  transition: transform 0.08s, box-shadow 0.08s, opacity 0.2s;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+}
+.action:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
+.action--feed { background: #ffe6a8; }
+.action--wash { background: var(--egg); }
+.action--sleep { background: #d6dbf1; }
+.action--clean { background: #d9f0da; }
+.action--pat { background: var(--pink-soft); }
+.action[aria-disabled='true'] { opacity: 0.5; box-shadow: 0 2px 0 var(--ink); }
+.label-long { display: none; }
+.action-badge {
+  position: absolute; top: -9px; right: -4px; min-width: 26px; height: 26px; padding: 0 6px;
+  display: grid; place-items: center; border: var(--line) solid var(--ink); border-radius: 999px;
+  background: var(--coin); font-size: 0.8rem; font-weight: 900;
+}
+
+/* Выбор еды */
+.pick {
+  display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px 14px;
+  border: var(--line) solid var(--ink); border-radius: 18px; background: #fff;
+  box-shadow: var(--shadow); text-align: left;
+}
+.pick:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
+.pick-text { display: grid; flex: 1; line-height: 1.2; }
+.pick-text small { color: var(--muted); font-weight: 700; font-size: 0.85rem; }
+.pick-qty { font-size: 1.1rem; font-weight: 900; }
+
+/* ——— Комната ——— */
+.room {
+  position: relative; isolation: isolate; overflow: hidden;
+  width: min(100%, 78dvh); margin-inline: auto; aspect-ratio: 1 / 1;
+  border: 4px solid var(--ink); border-radius: 30px; background: var(--pink-soft);
+}
+.room-wall {
+  position: absolute; inset: 0 0 38% 0; background-color: var(--pink-soft);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='%23f9cdd3'%3E%3Crect x='12' y='18' width='10' height='10'/%3E%3Crect x='70' y='8' width='7' height='7'/%3E%3Crect x='96' y='52' width='10' height='10'/%3E%3Crect x='30' y='76' width='7' height='7'/%3E%3Crect x='64' y='96' width='10' height='10'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 15% auto;
+}
+.room-base { position: absolute; left: 0; right: 0; top: 62%; height: 4%; background: #fff; border-block: var(--line) solid var(--ink); }
+.room-floor {
+  position: absolute; inset: 66% 0 0 0; background-color: #f2b3a6;
+  background-image: repeating-linear-gradient(90deg, transparent 0 15%, rgba(34, 30, 29, 0.13) 15% calc(15% + 2px));
+}
+.room-window {
+  position: absolute; left: 6%; top: 8%; height: 27%; aspect-ratio: 1 / 1.1; overflow: hidden;
+  border: 4px solid var(--ink); border-radius: 14px; background: var(--egg);
+  transition: background-color 0.8s;
+}
+.room-window::before,
+.room-window::after { content: ''; position: absolute; background: var(--ink); z-index: 2; }
+.room-window::before { left: 50%; top: 0; bottom: 0; width: 4px; margin-left: -2px; }
+.room-window::after { top: 50%; left: 0; right: 0; height: 4px; margin-top: -2px; }
+.room-cloud {
+  position: absolute; left: 12%; top: 16%; width: 44%; height: 16%; background: #fff; border-radius: 99px;
+  box-shadow: 8px -6px 0 -1px #fff;
+}
+.room-moon, .room-stars { display: none; }
+.room-poster {
+  position: absolute; right: 7%; top: 10%; height: 21%; aspect-ratio: 1 / 1.15;
+  display: grid; place-items: center; background: var(--cream);
+  border: 4px solid var(--ink); border-radius: 8px; transform: rotate(3deg);
+}
+.room-poster .pixel-heart { width: 62%; height: auto; }
+.room-rug {
+  position: absolute; left: 50%; bottom: 4%; width: 74%; height: 17%; transform: translateX(-50%);
+  border: 4px solid var(--ink); border-radius: 50%;
+  background: radial-gradient(ellipse at center, #d9def2 0 48%, var(--peri) 49% 100%);
+}
+
+.pet-wrap {
+  position: absolute; left: 50%; bottom: 8%; z-index: 2; transform: translateX(-50%);
+  height: 68%; aspect-ratio: 400 / 420; cursor: grab;
+  touch-action: pan-y; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent;
+  transition: filter 0.8s;
+}
+.pet-wrap:focus-visible { outline-offset: -6px; }
+.pet-wrap .pet { height: 100%; }
+
+.bubble {
+  position: absolute; left: 50%; top: 4%; z-index: 4; transform: translateX(-50%);
+  width: max-content; max-width: 46%; padding: 6px 14px; text-align: center;
+  border: var(--line) solid var(--ink); border-radius: 18px; background: #fff;
+  font-size: clamp(0.8rem, 3.3vw, 1rem); font-weight: 800; line-height: 1.2;
+  animation: bubble-in 0.3s ease-out;
+}
+.bubble::after {
+  content: ''; position: absolute; left: 50%; bottom: -10px; width: 14px; height: 14px; margin-left: -7px;
+  background: #fff; border-right: var(--line) solid var(--ink); border-bottom: var(--line) solid var(--ink);
+  transform: rotate(45deg);
+}
+@keyframes bubble-in { from { opacity: 0; transform: translateX(-50%) scale(0.8); } }
+
+.waste-btn {
+  position: absolute; z-index: 3; height: 13%; aspect-ratio: 48 / 44; padding: 0; border: 0; background: none;
+  animation: waste-drop 0.45s ease-out; -webkit-tap-highlight-color: transparent;
+}
+.waste-btn::before { content: ''; position: absolute; inset: -14px; }
+.waste-btn .waste { display: block; width: 100%; height: 100%; }
+.waste-btn:hover .waste,
+.waste-btn:focus-visible .waste { animation: waste-wiggle 0.4s ease-in-out infinite; }
+@keyframes waste-drop { from { transform: translateY(-140%) scale(0.6); opacity: 0; } 70% { transform: translateY(6%) scale(1.1, 0.9); } }
+@keyframes waste-wiggle { 50% { transform: rotate(-8deg) scale(1.08); } }
+
+.float-heart { position: absolute; z-index: 5; pointer-events: none; animation: heart-float 1.1s ease-out forwards; }
+@keyframes heart-float {
+  from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+  20% { opacity: 1; }
+  to { transform: translate(-50%, -260%) scale(1.15); opacity: 0; }
+}
+
+.eat-food {
+  position: absolute; z-index: 5; left: 64%; top: -2%; pointer-events: none;
+  animation: eat-in 1.5s ease-in forwards;
+}
+@keyframes eat-in {
+  0% { left: 66%; top: -4%; transform: translate(-50%, -50%) scale(1.15) rotate(-14deg); opacity: 1; }
+  65% { left: 50%; top: 50%; transform: translate(-50%, -50%) scale(0.95) rotate(0); opacity: 1; }
+  100% { left: 50%; top: 56%; transform: translate(-50%, -50%) scale(0.2); opacity: 0; }
+}
+
+/* Ночь: комната темнеет, питомец засыпает */
+.room-night {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0;
+  background: linear-gradient(#2b3168, #1a1d45); mix-blend-mode: multiply; transition: opacity 0.9s;
+}
+.room--night .room-night { opacity: 0.62; }
+.room--night .pet-wrap { filter: brightness(0.86); }
+.room--night .room-window { background: #26305e; }
+.room--night .room-cloud { display: none; }
+.room--night .room-moon {
+  display: block; position: absolute; right: 16%; top: 14%; width: 30%; aspect-ratio: 1;
+  border-radius: 50%; background: transparent; box-shadow: 5px 3px 0 0 #fff6d0;
+  transform: rotate(-20deg);
+}
+.room--night .room-stars {
+  display: block; position: absolute; left: 18%; top: 22%; width: 5px; height: 5px; background: #fff6d0;
+  box-shadow: 30px 12px 0 #fff6d0, 8px 46px 0 #fff6d0, 44px 60px 0 #fff6d0, 60px 30px 0 -1px #fff6d0;
+  animation: twinkle 3s steps(2) infinite;
+}
+@keyframes twinkle { 50% { opacity: 0.5; } }
+
+/* ——— Адаптивность главной ——— */
+@media (min-width: 768px) {
+  .home { max-width: 720px; gap: 16px; }
+  .stats { grid-template-columns: repeat(4, 1fr); }
+  .action { font-size: 0.95rem; min-height: 92px; }
+  .label-short { display: none; }
+  .label-long { display: inline; }
+}
+
+@media (min-width: 1100px) {
+  .home {
+    max-width: none; align-items: start; gap: 28px;
+    grid-template-columns: 270px minmax(0, 1fr) 270px;
+    grid-template-areas: 'stats room actions';
+  }
+  .home-stats { grid-template-columns: 1fr; gap: 12px; }
+  .home-stats .stat { padding: 12px 14px 14px; }
+  .home-stats .stat-name { font-size: 1rem; }
+  .room { width: min(100%, calc(100dvh - 130px)); }
+  .home-actions { grid-template-columns: 1fr; gap: 12px; }
+  .action { grid-auto-flow: column; justify-content: start; justify-items: start; align-items: center; gap: 14px; min-height: 76px; padding: 8px 18px; font-size: 1.05rem; }
+  .action-badge { top: 50%; right: 14px; transform: translateY(-50%); }
+}
+
+/* Телефон в альбомной ориентации: комната слева, шкалы и действия справа */
+@media (orientation: landscape) and (max-height: 520px) {
+  .home {
+    max-width: none; gap: 8px 12px; align-content: start;
+    grid-template-columns: minmax(0, 1fr) minmax(250px, 330px);
+    grid-template-rows: auto 1fr; grid-template-areas: 'room stats' 'room actions';
+  }
+  .stats { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .stat { padding: 5px 8px 7px; gap: 4px; }
+  .stat-name { font-size: 0.8rem; }
+  .home-room { display: flex; justify-content: center; }
+  .room { width: 100%; height: calc(100dvh - 60px); aspect-ratio: auto; }
+  .actions { grid-template-columns: repeat(3, 1fr); gap: 6px; align-self: start; }
+  .action { min-height: 62px; font-size: 0.72rem; padding: 4px 2px; }
+  .action .icon { width: 30px; height: 30px; }
+  .label-short { display: inline; }
+  .label-long { display: none; }
+}

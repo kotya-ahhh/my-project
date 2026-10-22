@@ -1,0 +1,81 @@
+/* ——— Каркас: шапка + контент + навигация ——— */
+.shell { min-height: 100dvh; display: flex; flex-direction: column; }
+
+.topbar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: calc(env(safe-area-inset-top, 0px) + 8px) 14px 8px;
+  background: var(--pink);
+}
+.brand {
+  display: flex; align-items: center; gap: 10px; text-decoration: none;
+  font-size: 1.3rem; font-weight: 900; flex-shrink: 0; white-space: nowrap;
+}
+.brand img {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: var(--line) solid var(--ink); background: var(--pink);
+}
+.topbar-tools { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+.content {
+  flex: 1; width: 100%; max-width: 1180px; margin: 0 auto;
+  padding: 6px 14px calc(var(--nav-h) + 28px + var(--safe-b));
+}
+
+/* Нижняя панель — на телефоне */
+.tabbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
+  padding: 8px 10px calc(8px + var(--safe-b));
+  background: var(--cream); border-top: var(--line) solid var(--ink);
+}
+.tab {
+  display: grid; justify-items: center; align-content: center; gap: 2px;
+  min-height: 52px; padding: 4px 2px; border-radius: 14px;
+  color: var(--muted); font-size: 0.78rem; font-weight: 800; text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.tab[aria-current='page'] { background: var(--peri); color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+
+/* Планшет и десктоп — расширенная навигация в шапке */
+@media (min-width: 768px) {
+  .topbar { padding: 14px 20px; gap: 6px; }
+  .tabbar {
+    position: static; flex: 1; grid-template-columns: repeat(4, auto); justify-content: center; gap: 4px;
+    padding: 0; background: transparent; border-top: 0; min-width: 0;
+  }
+  .tab {
+    grid-auto-flow: column; gap: 6px; min-height: 46px; padding: 6px 10px;
+    border: var(--line) solid transparent; border-radius: 16px; font-size: 0.92rem; color: var(--ink);
+    white-space: nowrap;
+  }
+  .tab:hover { background: var(--pink-soft); }
+  .tab[aria-current='page'] { border-color: var(--ink); box-shadow: none; }
+  .content { padding: 8px 28px 40px; }
+  .toasts { top: 84px; }
+}
+
+/* Больше воздуха, когда он есть */
+@media (min-width: 1024px) {
+  .topbar { padding: 14px 28px; gap: 10px; }
+  .tabbar { gap: 8px; }
+  .tab { padding: 6px 18px; font-size: 1rem; gap: 8px; }
+}
+
+/* Телефон в альбомной ориентации — навигация сбоку, чтобы не съедать высоту */
+@media (orientation: landscape) and (max-height: 520px) {
+  .topbar { padding: 6px 14px 6px calc(84px + 8px); }
+  .brand { font-size: 1.1rem; }
+  .brand img { width: 36px; height: 36px; }
+  .tabbar {
+    position: fixed; top: 0; bottom: 0; left: 0; right: auto; width: 76px;
+    grid-template-columns: 1fr; grid-auto-rows: 1fr; gap: 6px;
+    padding: 8px 6px; background: var(--cream);
+    border-top: 0; border-right: var(--line) solid var(--ink);
+  }
+  .tab { grid-auto-flow: row; gap: 2px; padding: 4px 2px; font-size: 0.72rem; color: var(--muted); border: 0; }
+  .tab:hover { background: transparent; }
+  .tab[aria-current='page'] { color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+  .content { padding: 0 14px 12px calc(84px + 8px); }
+  .toasts { top: 56px; }
+}

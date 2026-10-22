@@ -1,0 +1,12 @@
+/* ——— Инвентарь ——— */
+.inv-stats { margin-bottom: 16px; max-width: 640px; }
+.inv-group { margin-bottom: 22px; }
+.inv-group h2 { margin-bottom: 10px; }
+.inv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; list-style: none; margin: 0; padding: 0; }
+.inv-card { display: grid; justify-items: center; gap: 6px; text-align: center; padding: 14px 10px; }
+.inv-icon { position: relative; }
+.inv-icon .qty {
+  position: absolute; right: -10px; bottom: -6px; min-width: 26px; padding: 1px 6px;
+  border: var(--line) solid var(--ink); border-radius: 999px; background: var(--coin); font-size: 0.82rem;
+}
+.inv-card h3 { font-size: 1rem; }
