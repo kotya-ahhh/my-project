@@ -1,0 +1,14 @@
+{
+  "name": "Майнул",
+  "short_name": "Майнул",
+  "description": "Виртуальный питомец — манул Майнул",
+  "lang": "ru",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFC8CD",
+  "theme_color": "#FFC8CD",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
