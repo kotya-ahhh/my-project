@@ -1,6 +1,9 @@
 // Тонкая обёртка над fetch: токен, JSON, единый формат ошибок.
+import { demoApi } from './demoApi.js';
+
 const BASE = '/api';
 const TOKEN_KEY = 'mainul_token';
+const DEMO = import.meta.env.VITE_DEMO === 'true';
 
 export class ApiError extends Error {
   constructor(status, code, message) {
@@ -45,7 +48,7 @@ async function request(method, path, body) {
   return data;
 }
 
-export const api = {
+const realApi = {
   register: (username, password, passwordConfirm) => request('POST', '/auth/register', { username, password, passwordConfirm }),
   login: (username, password) => request('POST', '/auth/login', { username, password }),
   me: () => request('GET', '/auth/me'),
@@ -66,3 +69,7 @@ export const api = {
   gameStart: () => request('POST', '/game/start'),
   gameResult: (sessionId, caught) => request('POST', '/game/result', { sessionId, caught }),
 };
+
+// В демо-режиме (GitHub Pages) вместо сервера работает заглушка, вход происходит автоматически.
+export const api = DEMO ? demoApi : realApi;
+if (DEMO && !token) setToken('demo');
