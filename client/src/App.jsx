@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { HashRouter, Route, Routes, Navigate } from 'react-router';
 import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 import { ToastProvider } from './context/ToastContext.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
@@ -8,7 +8,6 @@ import HomePage from './pages/HomePage.jsx';
 import ShopPage from './pages/ShopPage.jsx';
 import InventoryPage from './pages/InventoryPage.jsx';
 import GamePage from './pages/GamePage.jsx';
-import { Navigate } from 'react-router';
 
 function Root() {
   // Гость на "/" видит форму входа; вошедший на "/login" — сразу дом (сама AuthPage это тоже делает).
@@ -19,7 +18,7 @@ function Root() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <AuthProvider>
         <ToastProvider>
           <Routes>
@@ -36,6 +35,6 @@ export default function App() {
           </Routes>
         </ToastProvider>
       </AuthProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
