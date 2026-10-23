@@ -3,7 +3,8 @@ import { demoApi } from './demoApi.js';
 
 const BASE = '/api';
 const TOKEN_KEY = 'mainul_token';
-const DEMO = import.meta.env.VITE_DEMO === 'true';
+const DEMO =
+  import.meta.env.VITE_DEMO === 'true' || location.hostname.endsWith('github.io');
 
 export class ApiError extends Error {
   constructor(status, code, message) {
